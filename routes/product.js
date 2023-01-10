@@ -6,6 +6,7 @@ const {
   newProduct,
   updateProduct,
   deleteProduct,
+  newReviews,
 } = require("../controller/productCon");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -101,32 +102,32 @@ route.delete(
  * Get Review
  * @route "http://localhost/api/v1/review
  *  @method GET
- * @visibility privet
+ * @visibility public
  */
-route.get("/admin/product/:id", isAuthenticatedUser, adminProductDetailers);
+route.get("/review", isAuthenticatedUser, adminProductDetailers);
 
 /**
  * Add Review
  * @route "http://localhost/api/v1/review/new
  *  @method POST
- * @visibility privet
+ * @visibility public
  */
-route.post("/admin/product/new", isAuthenticatedUser, newProduct);
+route.post("/review/new:id", isAuthenticatedUser, newReviews);
 
 /**
  * Delete Review
  * @route "http://localhost/api/v1/review/:id
  *  @method PUT
- * @visibility privet
+ * @visibility public
  */
-route.put("/admin/product/:id", isAuthenticatedUser, updateProduct);
+route.put("/review/:id", isAuthenticatedUser, updateProduct);
 
 /**
  * Delete Review
  * @route "http://localhost/api/v1/review/:id
  *  @method DELETE
- * @visibility privet
+ * @visibility public
  */
-route.put("/admin/product/:id", isAuthenticatedUser, updateProduct);
+route.put("/review/:id", isAuthenticatedUser, updateProduct);
 
 module.exports = route;
