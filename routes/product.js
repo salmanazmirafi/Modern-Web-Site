@@ -3,6 +3,9 @@ const {
   productDetailers,
   adminAllProduct,
   adminProductDetailers,
+  newProduct,
+  updateProduct,
+  deleteProduct,
 } = require("../controller/productCon");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -54,23 +57,33 @@ route.get(
 );
 
 /**
- * New Product
+ * Crate PRoduct
  * @route "http://localhost/api/v1/admin/product/:id
  *  @method POST
  * @visibility privet
  */
-route.post("/admin/product/new", isAuthenticatedUser, authorizeRoles("admin"));
+route.post(
+  "/admin/product/new",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  newProduct
+);
 
 /**
- * Single User
+ * Update PRoduct
  * @route "http://localhost/api/v1/admin/product/:id
  *  @method PUT
  * @visibility privet
  */
-route.put("/admin/product/:id", isAuthenticatedUser, authorizeRoles("admin"));
+route.put(
+  "/admin/product/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  updateProduct
+);
 
 /**
- * Single User
+ * Deleted Product
  * @route "http://localhost/api/v1/admin/product/:id
  *  @method DELETE
  * @visibility privet
@@ -78,9 +91,42 @@ route.put("/admin/product/:id", isAuthenticatedUser, authorizeRoles("admin"));
 route.delete(
   "/admin/product/:id",
   isAuthenticatedUser,
-  authorizeRoles("admin")
+  authorizeRoles("admin"),
+  deleteProduct
 );
 
 //-------------------Review----------------
+
+/**
+ * Get Review
+ * @route "http://localhost/api/v1/review
+ *  @method GET
+ * @visibility privet
+ */
+route.get("/admin/product/:id", isAuthenticatedUser, adminProductDetailers);
+
+/**
+ * Add Review
+ * @route "http://localhost/api/v1/review/new
+ *  @method POST
+ * @visibility privet
+ */
+route.post("/admin/product/new", isAuthenticatedUser, newProduct);
+
+/**
+ * Delete Review
+ * @route "http://localhost/api/v1/review/:id
+ *  @method PUT
+ * @visibility privet
+ */
+route.put("/admin/product/:id", isAuthenticatedUser, updateProduct);
+
+/**
+ * Delete Review
+ * @route "http://localhost/api/v1/review/:id
+ *  @method DELETE
+ * @visibility privet
+ */
+route.put("/admin/product/:id", isAuthenticatedUser, updateProduct);
 
 module.exports = route;
