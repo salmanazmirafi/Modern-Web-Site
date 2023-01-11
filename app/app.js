@@ -15,9 +15,11 @@ app.use(cookieParser());
 // Route Imports
 const route = require("../routes/user");
 const product = require("../routes/product");
+const Order = require("../routes/order");
 
 app.use("/api/v1", route);
 app.use("/api/v1", product);
+app.use("/api/v1", Order);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
