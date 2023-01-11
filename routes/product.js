@@ -7,6 +7,7 @@ const {
   updateProduct,
   deleteProduct,
   newReviews,
+  allReviews,
 } = require("../controller/productCon");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -104,7 +105,7 @@ route.delete(
  *  @method GET
  * @visibility public
  */
-route.get("/review", isAuthenticatedUser, adminProductDetailers);
+route.get("/reviews", isAuthenticatedUser, allReviews);
 
 /**
  * Add Review
@@ -112,7 +113,7 @@ route.get("/review", isAuthenticatedUser, adminProductDetailers);
  *  @method POST
  * @visibility public
  */
-route.post("/review/new:id", isAuthenticatedUser, newReviews);
+route.post("/review/new", isAuthenticatedUser, newReviews);
 
 /**
  * Delete Review

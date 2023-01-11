@@ -92,10 +92,19 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // All Reviews
-exports.allReviews = catchAsyncErrors(async (req, res, next) => {});
+exports.allReviews = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.query.id);
+    if (!product) return next(new ErrorHandler("Product Not Found", 400));
+
+    res.status(200).json(product.reviews);
+  } catch (err) {
+    next(new ErrorHandler(err));
+  }
+});
 
 // New Review
-exports.newReviews = catchAsyncErrors(async (req, res, next) => {
+exports.newReviews = catchAsyncErrors(async (req, res, _next) => {
   const { rating, comment, productId } = req.body;
 
   const review = {
