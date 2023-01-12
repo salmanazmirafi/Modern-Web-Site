@@ -1,4 +1,11 @@
-const { order, singleOrder, meOrder } = require("../controller/orderCon");
+const {
+  order,
+  singleOrder,
+  meOrder,
+  adminAllOrder,
+  updateOrderStatus,
+  orderDeleted,
+} = require("../controller/orderCon");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const route = require("express").Router();
@@ -37,15 +44,54 @@ route.get("/order", isAuthenticatedUser, meOrder);
 //-------------------Admin----------------
 
 /**
- * Get All User Find Adn Query
+ * Get Order All
  * - filter
  * - sort
  * - pagination
  * - select properties
- * @method POST
+ * @method GET
+ * @route "http://localhost/api/v1/admin/order
+ * @visibility private
+ */
+route.get(
+  "/admin/orders",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  adminAllOrder
+);
+
+/**
+ * Update Order Status
+ * - filter
+ * - sort
+ * - pagination
+ * - select properties
+ * @method PUT
  * @route "http://localhost/api/v1/admin
  * @visibility private
  */
-route.post("/admin", isAuthenticatedUser, authorizeRoles("admin"));
+route.put(
+  "/admin/order/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  updateOrderStatus
+);
+
+/**
+ * Delete Order
+ * - filter
+ * - sort
+ * - pagination
+ * - select properties
+ * @method DELETE
+ * @route "http://localhost/api/v1/admin
+ * @visibility private
+ */
+route.delete(
+  "/admin/order/:id",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  orderDeleted
+);
 
 module.exports = route;
