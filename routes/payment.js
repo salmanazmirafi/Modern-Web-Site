@@ -1,3 +1,4 @@
+const { processPayment } = require("../controller/paymentCon");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const route = require("express").Router();
@@ -10,7 +11,7 @@ const route = require("express").Router();
  * @method GET
  * @visibility public
  */
-route.get("/product", isAuthenticatedUser, allProduct);
+route.post("/payment/process", isAuthenticatedUser, processPayment);
 
 //-------------------Admin----------------
 
@@ -20,11 +21,6 @@ route.get("/product", isAuthenticatedUser, allProduct);
  * @method GET
  * @visibility privet
  */
-route.get(
-  "/admin/product",
-  isAuthenticatedUser,
-  authorizeRoles("admin"),
-  adminAllProduct
-);
+route.get("/admin/product", isAuthenticatedUser, authorizeRoles("admin"));
 
 module.exports = route;

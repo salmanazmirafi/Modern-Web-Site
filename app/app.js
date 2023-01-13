@@ -16,10 +16,12 @@ app.use(cookieParser());
 const route = require("../routes/user");
 const product = require("../routes/product");
 const Order = require("../routes/order");
+const Payment = require("../routes/payment");
 
 app.use("/api/v1", route);
 app.use("/api/v1", product);
 app.use("/api/v1", Order);
+app.use("/api/v1", Payment);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
