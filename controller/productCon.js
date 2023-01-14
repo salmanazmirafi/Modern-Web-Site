@@ -51,6 +51,7 @@ exports.adminProductDetailers = catchAsyncErrors(async (req, res, next) => {
 // New Product
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   try {
+    console.log(req.user.id);
     req.body.user = req.user.id;
     const product = await Product(req.body);
     const saveProduct = await product.save();
